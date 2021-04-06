@@ -53,7 +53,7 @@ public class BancoTest {
 
 		Assert.fail();
 	}
-	
+
 	@Test(expected = ContaInvalidaException.class)
 	public void naoDeveCadastrarContaComNumeroInvalido() throws ContaJaExistenteException, ContaInvalidaException {
 
@@ -68,7 +68,7 @@ public class BancoTest {
 
 		Assert.fail();
 	}
-	
+
 	@Test(expected = ContaJaExistenteException.class)
 	public void naoDeveCadastrarContaComNomeRepetido() throws ContaJaExistenteException, ContaInvalidaException {
 
@@ -87,11 +87,11 @@ public class BancoTest {
 
 		Assert.fail();
 	}
-	
-	
+
 	/************ Transferencia entre contas ************/
 	@Test
-	public void deveEfetuarTransferenciaContasCorrentes() throws ContaSemSaldoException, ContaNaoExistenteException, TransferenciaInvalidaException {
+	public void deveEfetuarTransferenciaContasCorrentes()
+			throws ContaSemSaldoException, ContaNaoExistenteException, TransferenciaInvalidaException {
 
 		// Cenario
 		Cliente cliente = new Cliente("Joao");
@@ -109,9 +109,10 @@ public class BancoTest {
 		assertEquals(-100, contaOrigem.getSaldo());
 		assertEquals(100, contaDestino.getSaldo());
 	}
-	
+
 	@Test
-	public void deveEfetuarTransferenciaContasCorrenteEPoupança() throws ContaSemSaldoException, ContaNaoExistenteException, TransferenciaInvalidaException {
+	public void deveEfetuarTransferenciaContasCorrenteEPoupança()
+			throws ContaSemSaldoException, ContaNaoExistenteException, TransferenciaInvalidaException {
 
 		// Cenario
 		Cliente cliente = new Cliente("Joao");
@@ -124,16 +125,17 @@ public class BancoTest {
 
 		// Ação
 		banco.efetuarTransferencia(123, 456, 100);
-		
+
 		// Verificação
 		assertEquals(900, contaOrigem.getSaldo());
 		assertEquals(600, contaDestino.getSaldo());
 
 	}
-	
+
 	// Verificação
 	@Test(expected = ContaNaoExistenteException.class)
-	public void naoDeveEfetuarTransferenciaSeContaOrigemNaoExiste() throws ContaNaoExistenteException, TransferenciaInvalidaException, ContaSemSaldoException {
+	public void naoDeveEfetuarTransferenciaSeContaOrigemNaoExiste()
+			throws ContaNaoExistenteException, TransferenciaInvalidaException, ContaSemSaldoException {
 
 		// Cenario
 		Cliente cliente = new Cliente("Joao");
@@ -148,9 +150,10 @@ public class BancoTest {
 		banco.efetuarTransferencia(123, 456, 100);
 
 	}
-	
+
 	@Test(expected = ContaSemSaldoException.class)
-	public void naoDevePermitirContaOrigemTipoPoupançaFicarComSaldoNegativo() throws ContaSemSaldoException, ContaNaoExistenteException, TransferenciaInvalidaException {
+	public void naoDevePermitirContaOrigemTipoPoupançaFicarComSaldoNegativo()
+			throws ContaSemSaldoException, ContaNaoExistenteException, TransferenciaInvalidaException {
 
 		// Cenario
 		Cliente cliente = new Cliente("Joao");
@@ -163,31 +166,33 @@ public class BancoTest {
 
 		// Ação
 		banco.efetuarTransferencia(123, 456, 1000);
-		
+
 		// Verificação
 
 	}
-	
+
 	// Verificação
-		@Test(expected = ContaNaoExistenteException.class)
-		public void naoDeveEfetuarTransferenciaSeContaDestinoNaoExiste() throws ContaNaoExistenteException, TransferenciaInvalidaException, ContaSemSaldoException {
+	@Test(expected = ContaNaoExistenteException.class)
+	public void naoDeveEfetuarTransferenciaSeContaDestinoNaoExiste()
+			throws ContaNaoExistenteException, TransferenciaInvalidaException, ContaSemSaldoException {
 
-			// Cenario
-			Cliente cliente = new Cliente("Joao");
-			Conta contaOrigem = new Conta(cliente, 123, 1000, TipoConta.POUPANCA);
+		// Cenario
+		Cliente cliente = new Cliente("Joao");
+		Conta contaOrigem = new Conta(cliente, 123, 1000, TipoConta.POUPANCA);
 
-			Cliente cliente2 = new Cliente("Maria");
-			Conta contaDestino = new Conta(cliente2, 456, 120, TipoConta.CORRENTE);
+		Cliente cliente2 = new Cliente("Maria");
+		Conta contaDestino = new Conta(cliente2, 456, 120, TipoConta.CORRENTE);
 
-			Banco banco = new Banco(Arrays.asList(contaOrigem));
+		Banco banco = new Banco(Arrays.asList(contaOrigem));
 
-			// Ação
-			banco.efetuarTransferencia(123, 456, 100);
+		// Ação
+		banco.efetuarTransferencia(123, 456, 100);
 
-		}
-	
+	}
+
 	@Test(expected = TransferenciaInvalidaException.class)
-	public void naoDeveTransferirValorNegativo() throws ContaSemSaldoException, ContaNaoExistenteException, TransferenciaInvalidaException {
+	public void naoDeveTransferirValorNegativo()
+			throws ContaSemSaldoException, ContaNaoExistenteException, TransferenciaInvalidaException {
 
 		// Cenario
 		Cliente cliente = new Cliente("Joao");
